@@ -34,6 +34,7 @@ public class MainApp {
       }
 
       List<Car> cars = carService.listCars();
+
       for (Car car : cars) {
          System.out.println("Id = " + car.getUser().getId());
          System.out.println("Model = " + car.getModel());

@@ -29,14 +29,14 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public User getUserByCar(String model, int series) {
-        Long userId = (Long) sessionFactory.getCurrentSession()
-                .createQuery("SELECT id FROM Car WHERE (model = :model AND series = :series)")
-                .setParameter("model", model)
-                .setParameter("series", series)
-                .uniqueResult();
         return (User) sessionFactory.getCurrentSession()
                 .createQuery("FROM User WHERE id = :id")
-                .setParameter("id", userId)
+                .setParameter("id",
+                        sessionFactory.getCurrentSession()
+                        .createQuery("SELECT id FROM Car WHERE (model = :model AND series = :series)")
+                        .setParameter("model", model)
+                        .setParameter("series", series)
+                        .uniqueResult())
                 .uniqueResult();
     }
 }
